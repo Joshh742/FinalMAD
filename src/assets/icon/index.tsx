@@ -1,4 +1,5 @@
 import Logo from './Logo.svg';
 import Panah from './Panah.svg';
+import Photo from './null-photo.png';
 
-export {Logo, Panah};
+export {Logo, Panah, Photo};

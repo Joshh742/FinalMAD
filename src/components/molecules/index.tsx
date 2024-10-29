@@ -2,4 +2,17 @@ import Header from './Header';
 import TextInput from './TextInput';
 import HeaderSignUp from './HeaderSignUp';
 import BorderCircle from './BorderCircle';
-export {Header, TextInput, HeaderSignUp, BorderCircle};
+import HeaderHome from './HeaderHome';
+import Text1 from './Text';
+import BalanceDetails from './BalanceDetails';
+import BalanceHeader from './BalanceHeader';
+export {
+  Header,
+  TextInput,
+  HeaderSignUp,
+  BorderCircle,
+  HeaderHome,
+  Text1,
+  BalanceDetails,
+  BalanceHeader,
+};
