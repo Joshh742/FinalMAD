@@ -5,11 +5,11 @@ const BalanceDetails = ({cashOnHand, cashInBank}) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <Text style={styles.label}>Cash on Hand</Text>
+        <Text style={styles.label}>Cash on Hand :</Text>
         <Text style={styles.amount}>Rp. {cashOnHand}</Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.label}>Cash on Bank</Text>
+        <Text style={styles.label}>Cash on Bank :</Text>
         <Text style={styles.amount}>Rp. {cashInBank}</Text>
       </View>
     </View>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 5,
+    paddingVertical: 3,
   },
   label: {
     fontSize: 14,

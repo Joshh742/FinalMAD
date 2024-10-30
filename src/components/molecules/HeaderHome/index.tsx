@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  null: {
+    marginRight: 26,
+  },
   text: {
     color: '#020202',
     fontFamily: 'Poppins',

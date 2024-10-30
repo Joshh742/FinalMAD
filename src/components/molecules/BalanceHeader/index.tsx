@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   title: {
+    fontFamily: 'Poppins',
     fontSize: 16,
     color: '#000',
     alignSelf: 'flex-start', // Memindahkan judul ke kiri
@@ -38,8 +39,8 @@ const styles = StyleSheet.create({
   },
   separator: {
     width: '90%',
-    height: 1,
-    backgroundColor: '#E0E0E0',
+    height: 1, // Menambah ketebalan garis
+    backgroundColor: '#000000', // Mengubah warna garis menjadi hitam
     marginVertical: 10,
   },
 });
