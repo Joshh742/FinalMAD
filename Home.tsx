@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import Title from './components/title';
+import Title from './carrent/components/title';
 import axios from 'axios';
 
 const Home = () => {

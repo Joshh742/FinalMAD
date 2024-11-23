@@ -6,6 +6,7 @@ import HeaderHome from './HeaderHome';
 import Text1 from './Text';
 import BalanceDetails from './BalanceDetails';
 import BalanceHeader from './BalanceHeader';
+import TransactionCard from './TransactionCard';
 export {
   Header,
   TextInput,
@@ -15,4 +16,5 @@ export {
   Text1,
   BalanceDetails,
   BalanceHeader,
+  TransactionCard,
 };

@@ -3,9 +3,9 @@ import React from 'react';
 import {ArrowBack} from '../../../assets/icon';
 
 const Button = ({
-  color = '#02CF8E',
+  color = '#394E82',
   text,
-  textColor = '#020202',
+  textColor = '#ffff',
   type,
   icon,
   onPress,
@@ -39,9 +39,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 12,
+    marginHorizontal: 50,
   }),
   text: textColor => ({
-    fontFamily: 'Poppins-Medium',
     fontSize: 14,
     color: textColor,
   }),

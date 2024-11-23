@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import {Button, Gap} from '../../components/atoms';
 import {DummyPhoto} from '../../assets/icon';
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <View style={styles.pageContainer}>
       <View style={styles.headerContainer}>
@@ -26,9 +26,19 @@ const Home = () => {
           <Text style={styles.subTotal}>Rp. 6.000.000</Text>
         </View>
         <Text style={styles.subTitle}>Add Transaction</Text>
-        <Button text="Cash On Hand" />
+        <Button
+          text="Cash On Hand"
+          onPress={() =>
+            navigation.navigate('AddTransaction', {title: 'Cash On Hand'})
+          }
+        />
         <Gap height={10} />
-        <Button text="Cash On Bank" />
+        <Button
+          text="Cash On Bank"
+          onPress={() =>
+            navigation.navigate('AddTransaction', {title: 'Cash On Bank'})
+          }
+        />
       </View>
     </View>
   );

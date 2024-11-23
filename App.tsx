@@ -1,12 +1,9 @@
 import React from 'react';
-import SplashScreen from './src/page/SplashScreen';
-import SignIn from './src/page/SignIn';
-import SignUp from './src/page/SignUp';
-import AddTransaction from './src/page/AddTransaction';
-import Home from './src/page/Home';
-import './src/config/Firebase';
+import Sign from './carrent/pages/Sign';
+import SignUp from './carrent/pages/SignUp';
 
 const App = () => {
-  return <Home />;
+  return <SignUp />;
 };
+
 export default App;

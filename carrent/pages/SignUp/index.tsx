@@ -2,54 +2,82 @@ import {StyleSheet, TouchableOpacity, View, Image} from 'react-native';
 import React, {useState} from 'react';
 import {Header, TextInput} from '../../components/molecules';
 import {Button, Gap} from '../../components/atoms';
-import {NullPhoto} from '../../assets/icon';
+import {NullPhoto} from '../../assets/icon/';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
 
-const SignUp = ({navigation}) => {
+const SignUp = ({}) => {
   const [photo, setPhoto] = useState(NullPhoto);
+
   const getImage = async () => {
-    const result = await launchImageLibrary({
-      maxWidth: 100,
-      maxHeight: 100,
-      quality: 0.5,
-      includeBase64: true,
-    });
-    if (result.didCancel) {
+    try {
+      const result = await launchImageLibrary({
+        maxWidth: 100,
+        maxHeight: 100,
+        quality: 0.5,
+        includeBase64: true,
+        selectionLimit: 1, // Batasi pilihan hanya satu gambar
+        mediaType: 'photo', // Hanya menampilkan gambar
+      });
+
+      if (result.didCancel) {
+        showMessage({
+          message: 'Pilih foto dibatalkan',
+          type: 'danger',
+        });
+        setPhoto(NullPhoto);
+      } else if (result.assets && result.assets.length > 0) {
+        const asset = result.assets[0];
+        if (asset.uri) {
+          setPhoto({uri: asset.uri});
+        } else {
+          showMessage({
+            message: 'Gambar tidak valid',
+            type: 'danger',
+          });
+          setPhoto(NullPhoto);
+        }
+      } else {
+        showMessage({
+          message: 'Tidak ada gambar yang dipilih',
+          type: 'danger',
+        });
+        setPhoto(NullPhoto);
+      }
+    } catch (error) {
+      console.error(error);
       showMessage({
-        message: 'Pilih foto dibatalkan',
+        message: 'Terjadi kesalahan saat memuat gambar',
         type: 'danger',
       });
       setPhoto(NullPhoto);
-    } else {
-      const assets = result.assets[0];
-      const base64 = `data:${assets.type};base64, ${assets.base64}`;
-      setPhoto({uri: base64});
     }
   };
+
   return (
     <View style={styles.container}>
-      <Header
-        text="Sign Up"
-        backButton={true}
-        onPress={() => navigation.goBack()}
-      />
+      <Header text="Sign Up" />
       <View style={styles.contentWrapper}>
         <View style={styles.profileContainer}>
           <View style={styles.profileBorder}>
             <TouchableOpacity onPress={getImage}>
-              <Image source={photo} style={styles.photo} />
+              <Image
+                source={photo.uri ? photo : NullPhoto}
+                style={styles.photo}
+              />
             </TouchableOpacity>
           </View>
         </View>
-        <TextInput label="Full Name" placeholder="Type your full name" />
+        <TextInput label="Email Address" placeholder="Type your email" />
         <Gap height={15} />
-        <TextInput
-          label="Email Address"
-          placeholder="Type your email address"
-        />
+        <TextInput label="Username" placeholder="Type your username" />
         <Gap height={15} />
         <TextInput label="Password" placeholder="Type your password" />
+        <Gap height={15} />
+        <TextInput
+          label="Re-type Password"
+          placeholder="Re-Type your password"
+        />
         <Gap height={24} />
         <Button text="Continue" />
       </View>

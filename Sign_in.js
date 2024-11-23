@@ -1,7 +1,7 @@
 import {StyleSheet, View, Text} from 'react-native';
 import React from 'react';
-import Input from './components/input';
-import Button from './components/button';
+import Input from './carrent/components/input';
+import Button from './carrent/components/button';
 
 const Sign_in = () => {
   return (
