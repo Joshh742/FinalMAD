@@ -1,8 +1,8 @@
 import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
 import React, {useState} from 'react';
-import Input from './components/input';
-import Button from './components/button';
-import Title from './components/title';
+import Input from './carrent/components/input';
+import Button from './carrent/components/button';
+import Title from './carrent/components/title';
 
 const SignIn = () => {
   // let title = 'Welcome';

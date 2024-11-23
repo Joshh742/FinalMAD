@@ -19,10 +19,15 @@ const styles = StyleSheet.create({
     color: '#020202',
   },
   input: {
+    backgroundColor: '#FFFFFF', // Warna putih untuk kotak input
     borderWidth: 1,
-    borderColor: '#020202',
+    borderColor: '#E5E5E5',
     borderRadius: 8,
     padding: 10,
-    color: '#8D92A3',
+    shadowColor: '#000', // Warna bayangan
+    shadowOffset: {width: 0, height: 2}, // Posisi bayangan
+    shadowOpacity: 0.1, // Transparansi bayangan
+    shadowRadius: 4, // Ukuran radius bayangan
+    elevation: 3, // Bayangan untuk perangkat Android
   },
 });
