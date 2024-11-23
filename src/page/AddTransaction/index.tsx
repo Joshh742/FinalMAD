@@ -1,41 +1,44 @@
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import {Button, Gap} from '../../components/atoms';
 import {Header, TransactionCard, TextInput} from '../../components/molecules';
 
 const AddTransaction = ({navigation, route}) => {
   const {title} = route.params;
+
+  // State untuk menyimpan nilai input tanggal pemesanan dan pengembalian
+  const [orderDate, setOrderDate] = useState('');
+  const [returnDate, setReturnDate] = useState('');
+
+  // Fungsi untuk menangani navigasi ke halaman Transaksi
+  const handleOrder = () => {
+    // Arahkan ke halaman Transaksi dan kirimkan data tanggal
+    navigation.navigate('transaksi', {
+      orderDate,
+      returnDate,
+    });
+  };
+
   return (
-    <ScrollView
-      style={styles.pageContainer}
-      showsVerticalScrollIndicato={false}>
+    <ScrollView style={styles.pageContainer} showsVerticalScrollIndicator={false}>
       <Header text={title} backButton onPress={() => navigation.goBack()} />
       <View style={styles.contentWrapper}>
-        <TextInput label="Description" placeholder="Add the description" />
-        <Gap height={17} />
-        <TextInput label="Type" placeholder="Debit / Kredit" />
-        <Gap height={17} />
-        <Button text="Save" />
-        <Gap height={17} />
-        <Text style={styles.subTitle}>Last 3 Transactions</Text>
-        <TransactionCard
-          date="17 April 2024"
-          desc="Water, Food"
-          price="-Rp. 400.000"
-          type="debit"
+        <TextInput 
+          label="Tanggal Pemesanan" 
+          placeholder="add tanggal" 
+          value={orderDate} 
+          onChangeText={setOrderDate} // Menyimpan input tanggal pemesanan
         />
-        <TransactionCard
-          date="17 April 2024"
-          desc="Office supplies"
-          price="-Rp. 400.000"
-          type="debit"
+        <Gap height={17} />
+        <TextInput 
+          label="Tanggal Pengembalian" 
+          placeholder="add tanggal" 
+          value={returnDate} 
+          onChangeText={setReturnDate} // Menyimpan input tanggal pengembalian
         />
-        <TransactionCard
-          date="17 April 2024"
-          desc="Top Up"
-          price="Rp. 400.000"
-          type="credit"
-        />
+        <Gap height={17} />
+        <Button text="Order" onPress={handleOrder} />
+        <Gap height={17} />
       </View>
     </ScrollView>
   );

@@ -3,7 +3,7 @@ import React from 'react';
 import {ArrowBack} from '../../../assets/icon';
 
 const Button = ({
-  color = '#02CF8E',
+  color = '#00000',
   text,
   textColor = '#020202',
   type,
