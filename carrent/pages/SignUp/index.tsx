@@ -1,86 +1,133 @@
-import {StyleSheet, TouchableOpacity, View, Image} from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Image,
+  ScrollView,
+} from 'react-native';
 import React, {useState} from 'react';
 import {Header, TextInput} from '../../components/molecules';
 import {Button, Gap} from '../../components/atoms';
-import {NullPhoto} from '../../assets/icon/';
+import {NullPhoto} from '../../assets/icon';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
+import {getDatabase, ref, set} from 'firebase/database';
 
-const SignUp = ({}) => {
+const SignUp = ({navigation}) => {
   const [photo, setPhoto] = useState(NullPhoto);
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [photoBase64, setPhotoBase64] = useState('');
 
   const getImage = async () => {
-    try {
-      const result = await launchImageLibrary({
-        maxWidth: 100,
-        maxHeight: 100,
-        quality: 0.5,
-        includeBase64: true,
-        selectionLimit: 1, // Batasi pilihan hanya satu gambar
-        mediaType: 'photo', // Hanya menampilkan gambar
-      });
-
-      if (result.didCancel) {
-        showMessage({
-          message: 'Pilih foto dibatalkan',
-          type: 'danger',
-        });
-        setPhoto(NullPhoto);
-      } else if (result.assets && result.assets.length > 0) {
-        const asset = result.assets[0];
-        if (asset.uri) {
-          setPhoto({uri: asset.uri});
-        } else {
-          showMessage({
-            message: 'Gambar tidak valid',
-            type: 'danger',
-          });
-          setPhoto(NullPhoto);
-        }
-      } else {
-        showMessage({
-          message: 'Tidak ada gambar yang dipilih',
-          type: 'danger',
-        });
-        setPhoto(NullPhoto);
-      }
-    } catch (error) {
-      console.error(error);
+    const result = await launchImageLibrary({
+      maxWidth: 100,
+      maxHeight: 100,
+      quality: 0.5,
+      includeBase64: true,
+    });
+    if (result.didCancel) {
       showMessage({
-        message: 'Terjadi kesalahan saat memuat gambar',
+        message: 'Pilih foto dibatalkan',
         type: 'danger',
       });
       setPhoto(NullPhoto);
+    } else {
+      const assets = result.assets[0];
+      const base64 = `data:${assets.type};base64,${assets.base64}`;
+      setPhotoBase64(base64);
+      setPhoto({uri: base64});
     }
+  };
+
+  const validateForm = () => {
+    if (!fullName || !email || !password) {
+      showMessage({
+        message: 'Kolom tidak boleh kosong',
+        type: 'danger',
+      });
+      return false;
+    }
+    if (photo.uri === NullPhoto.uri) {
+      showMessage({
+        message: 'Foto harus dipilih',
+        type: 'danger',
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const createUser = () => {
+    if (!validateForm()) {
+      return;
+    }
+
+    const auth = getAuth();
+    const db = getDatabase();
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        set(ref(db, 'users/' + user.uid), {
+          fullName: fullName,
+          email: email,
+          photo: photoBase64,
+        });
+        navigation.navigate('SignUp2');
+      })
+      .catch(error => {
+        showMessage({
+          message: error.message,
+          type: 'danger',
+        });
+      });
   };
 
   return (
     <View style={styles.container}>
-      <Header text="Sign Up" />
-      <View style={styles.contentWrapper}>
+      <Header
+        text="Sign Up"
+        backButton={true}
+        onPress={() => navigation.goBack()}
+      />
+
+      <ScrollView
+        style={styles.contentWrapper}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.profileContainer}>
           <View style={styles.profileBorder}>
             <TouchableOpacity onPress={getImage}>
-              <Image
-                source={photo.uri ? photo : NullPhoto}
-                style={styles.photo}
-              />
+              <Image source={photo} style={styles.photo} resizeMode="cover" />
             </TouchableOpacity>
           </View>
         </View>
-        <TextInput label="Email Address" placeholder="Type your email" />
-        <Gap height={15} />
-        <TextInput label="Username" placeholder="Type your username" />
-        <Gap height={15} />
-        <TextInput label="Password" placeholder="Type your password" />
+        <TextInput
+          label="Full Name"
+          placeholder="Type your full name"
+          value={fullName}
+          onChangeText={text => setFullName(text)}
+        />
         <Gap height={15} />
         <TextInput
-          label="Re-type Password"
-          placeholder="Re-Type your password"
+          label="Email Address"
+          placeholder="Type your email address"
+          value={email}
+          onChangeText={text => setEmail(text)}
+        />
+        <Gap height={15} />
+        <TextInput
+          label="Password"
+          placeholder="Type your password"
+          secureTextEntry
+          value={password}
+          onChangeText={text => setPassword(text)}
         />
         <Gap height={24} />
-        <Button text="Continue" />
-      </View>
+        <Button text="Continue" onPress={createUser} />
+      </ScrollView>
     </View>
   );
 };

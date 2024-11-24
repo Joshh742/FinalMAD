@@ -1,8 +1,13 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {LogoCarrent} from '../../assets/icon';
 
-const SplashCarrent = () => {
+const SplashCarrent = ({navigation}) => {
+  useEffect(() => {
+    setTimeout(() => {
+      navigation.replace('Sign');
+    }, 3000);
+  }, []);
   return (
     <View style={styles.container}>
       <LogoCarrent />
