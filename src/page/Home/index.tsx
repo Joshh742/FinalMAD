@@ -17,7 +17,7 @@ const Home = ({ navigation }) => {
         <View style={styles.line} />
         <View style={styles.subTotalWrapper}>
           <Text style={styles.subTotal}>Harga/hari</Text>
-          <Text style={styles.subTotal}>Rp.400.000</Text>
+          <Text style={styles.subTotal}>Rp.400.000 + 50 jika </Text>
         </View>
         
         {/* Added car description */}
@@ -26,6 +26,7 @@ const Home = ({ navigation }) => {
           Dengan desain modern dan efisiensi bahan bakar yang baik, 
           Brio memberikan kenyamanan serta performa yang maksimal.
         </Text>
+        <Text style={styles.subTotal}>Biaya akan ditambahkan 50 jika tidak dikembalikan sesuai tanggal pengembalian</Text>
 
         <Text style={styles.subTitle}>Buat Transaksi</Text>
         <Button

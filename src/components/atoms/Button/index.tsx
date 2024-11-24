@@ -3,7 +3,7 @@ import React from 'react';
 import {ArrowBack} from '../../../assets/icon';
 
 const Button = ({
-  color = '#00000',
+  color = '#394E82',
   text,
   textColor = '#020202',
   type,
@@ -35,10 +35,13 @@ export default Button;
 const styles = StyleSheet.create({
   button: color => ({
     backgroundColor: color,
-    borderRadius: 8,
+    borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 12,
+    width: 176,
+    height: 41,
+    alignSelf: 'center', // Menambahkan ini untuk memusatkan tombol
   }),
   text: textColor => ({
     fontFamily: 'Poppins-Medium',
