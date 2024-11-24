@@ -9,6 +9,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import FlashMessage from 'react-native-flash-message';
 import './carrent/config/Firebase';
+import Transaction from './carrent/pages/Transaction';
+import Order from './carrent/pages/Order';
+import Information from './carrent/pages/Information';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +47,21 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={Home}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Transaction"
+          component={Transaction}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Order"
+          component={Order}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Information"
+          component={Information}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
