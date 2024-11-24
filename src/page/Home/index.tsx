@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
-import {Button, Gap} from '../../components/atoms';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { Button, Gap } from '../../components/atoms';
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
   return (
     <View style={styles.pageContainer}>
       <View style={styles.headerContainer}>
@@ -19,11 +19,19 @@ const Home = ({navigation}) => {
           <Text style={styles.subTotal}>Harga/hari</Text>
           <Text style={styles.subTotal}>Rp.400.000</Text>
         </View>
+        
+        {/* Added car description */}
+        <Text style={styles.carDescription}>
+          Mobil ini adalah pilihan yang tepat untuk perjalanan Anda. 
+          Dengan desain modern dan efisiensi bahan bakar yang baik, 
+          Brio memberikan kenyamanan serta performa yang maksimal.
+        </Text>
+
         <Text style={styles.subTitle}>Buat Transaksi</Text>
         <Button
           text="Order"
           onPress={() =>
-            navigation.navigate('AddTransaction', {title: 'order mobil'})
+            navigation.navigate('AddTransaction', { title: 'order mobil' })
           }
         />
         <Gap height={10} />
@@ -80,5 +88,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     fontSize: 22,
     color: '#020202',
+  },
+  // Style for the car description
+  carDescription: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 14,
+    color: '#555555',
+    marginVertical: 12,
   },
 });

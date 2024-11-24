@@ -1,40 +1,44 @@
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import React, { useState } from 'react';
-import {Button, Gap} from '../../components/atoms';
-import {Header, TransactionCard, TextInput} from '../../components/molecules';
+import { StyleSheet, ScrollView, View, Alert } from 'react-native';
+import React, { useRef } from 'react';
+import { Button, Gap } from '../../components/atoms';
+import { Header, TextInput } from '../../components/molecules';
 
-const AddTransaction = ({navigation, route}) => {
-  const {title} = route.params;
+const AddTransaction = ({ navigation, route }) => {
+  const { title } = route.params;
 
-  // State untuk menyimpan nilai input tanggal pemesanan dan pengembalian
-  const [orderDate, setOrderDate] = useState('');
-  const [returnDate, setReturnDate] = useState('');
+  // Menggunakan useRef untuk referensi input
+  const orderDateRef = useRef(null);
+  const returnDateRef = useRef(null);
 
-  // Fungsi untuk menangani navigasi ke halaman Transaksi
+  // Fungsi untuk menangani order dan langsung kembali ke menu Home
   const handleOrder = () => {
-    // Arahkan ke halaman Transaksi dan kirimkan data tanggal
-    navigation.navigate('transaksi', {
-      orderDate,
-      returnDate,
-    });
+    const orderDate = orderDateRef.current?.value;
+    const returnDate = returnDateRef.current?.value;
+
+    // Cek apakah input sudah diisi
+    if (orderDate && returnDate) {
+      // Navigasi langsung ke menu Home
+      navigation.navigate('Home');
+    } else {
+      // Menampilkan pop-up jika ada data yang belum diisi
+      Alert.alert('Error', 'Harap isi semua data sebelum melanjutkan.');
+    }
   };
 
   return (
     <ScrollView style={styles.pageContainer} showsVerticalScrollIndicator={false}>
       <Header text={title} backButton onPress={() => navigation.goBack()} />
       <View style={styles.contentWrapper}>
-        <TextInput 
-          label="Tanggal Pemesanan" 
-          placeholder="add tanggal" 
-          value={orderDate} 
-          onChangeText={setOrderDate} // Menyimpan input tanggal pemesanan
+        <TextInput
+          label="Tanggal Pemesanan"
+          placeholder="Tambah tanggal"
+          ref={orderDateRef} // Menggunakan useRef untuk input
         />
         <Gap height={17} />
-        <TextInput 
-          label="Tanggal Pengembalian" 
-          placeholder="add tanggal" 
-          value={returnDate} 
-          onChangeText={setReturnDate} // Menyimpan input tanggal pengembalian
+        <TextInput
+          label="Tanggal Pengembalian"
+          placeholder="Tambah tanggal"
+          ref={returnDateRef} // Menggunakan useRef untuk input
         />
         <Gap height={17} />
         <Button text="Order" onPress={handleOrder} />
@@ -56,11 +60,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 24,
     paddingVertical: 18,
-  },
-  subTitle: {
-    fontFamily: 'Poppins-Medium',
-    color: '#000000',
-    fontSize: 16,
-    marginVertical: 12,
   },
 });
