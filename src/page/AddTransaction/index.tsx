@@ -7,9 +7,6 @@ const AddTransaction = ({ navigation, route }) => {
   const { title } = route.params;
 
   // Menggunakan useRef untuk referensi input
-  const orderDateRef = useRef(null);
-  const returnDateRef = useRef(null);
-
   // Fungsi untuk menangani order dan langsung kembali ke menu Home
   const handleOrder = () => {
     const orderDate = orderDateRef.current?.value;
